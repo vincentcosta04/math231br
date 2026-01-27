@@ -17,7 +17,7 @@ Give a recount of the comparison theorem between singular cohomology and sheaf c
 Give an overview of Rokhlin's result that the cobordism group of oriented 3-manifolds is trivial.
 
 ## The $\widehat{A}$-genus
-Discuss the $\widehat{A}$-genus and its connection to spin bordism.
+Discuss the $\widehat{A}$-genus and its connection to spin bordism. (Dibs: Zoe Batterman)
 
 ## The Hodge-de Rham spectral sequence
 Explain the spectral sequence $H^p(X,\Omega^q) \Rightarrow H^{p+q}(X,\mathbb{C})$ valid for complex manifolds, following Deligne, Fröhlicher, and others. Explain why it degenerates for compact Kähler manifolds, and give examples of the failure of degeneration in other settings.
