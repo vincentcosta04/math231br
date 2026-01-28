@@ -40,8 +40,8 @@
 
 %%%%%%%%%%%%%%% Theorems
 \theoremstyle{definition}
-\newtheorem{theorem}{Theorem}[section]
-\numberwithin{theorem}{section} % important bit
+\newtheorem{theorem}[equation]{Theorem}
+% \numberwithin{theorem}{section} % important bit
 \numberwithin{equation}{section} % number equations like (1.1), (1.2), etc.
 
 % Macro to capitalize input
@@ -50,7 +50,7 @@
 
 % Define a theorem following the theorem counter
 \newcommand{\defthm}[1]{%
-  \newtheorem{#1}[theorem]{\capitalizename{#1}}%
+  \newtheorem{#1}[equation]{\capitalizename{#1}}%
 }
 
 % Iterate the defthm command over a csv
@@ -68,7 +68,42 @@
 }
 
 \Crefname{construction}{Construction}{Constructions}
+\Crefname{exercise}{Exercise}{Exercises}
 \Crefname{question}{Question}{Questions}
+
+% force unique anchors
+\makeatletter
+\renewcommand*\theHequation{\thesection.\arabic{equation}}
+
+\let\theHtheorem\theHequation
+\let\theHassumption\theHequation
+\let\theHclaim\theHequation
+\let\theHconjecture\theHequation
+\let\theHconvention\theHequation
+\let\theHcorollary\theHequation
+\let\theHcounterexample\theHequation
+\let\theHdefinition\theHequation
+\let\theHdigression\theHequation
+\let\theHexample\theHequation
+\let\theHexamples\theHequation
+\let\theHexercise\theHequation
+\let\theHfact\theHequation
+\let\theHidea\theHequation
+\let\theHintuition\theHequation
+\let\theHlemma\theHequation
+\let\theHmetathm\theHequation
+\let\theHnotation\theHequation
+\let\theHnote\theHequation
+\let\theHproposition\theHequation
+\let\theHremark\theHequation
+\let\theHstrategy\theHequation
+\let\theHterminology\theHequation
+\let\theHupshot\theHequation
+\let\theHwarn\theHequation
+\makeatother
+
+
+
 
 %%%%%%%%%%%%%%% Text commands and categories
 \newcommand{\deftextcommand}[1]{%
