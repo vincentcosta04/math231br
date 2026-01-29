@@ -46,7 +46,7 @@ Thank you to Vincent Costa for changes to the notes. Thanks to Sidhanth Raman fo
 
 The definition of a \emph{sheaf} in Hirzebruch is perhaps a bit different from what we're used to. He wants to think of sheaves as \emph{living over} a space $X$, whereas we might be comfortable thinking about sheaves as local data across a space. We'll see how these perspectives are equivalent.
 
-\begin{definition} A \emph{sheaf of abelian groups} over a topological space $X$ is the data of a surjective continuous map $\pi \colon S \to X$, for which
+\begin{definition} A \emph{sheaf of abelian groups} over a topological space $X$ is a topological space $S$ with the data of a surjective continuous map $\pi \colon S \to X$, for which
 \begin{itemize}
     \item $\pi$ is a \emph{local homeomorphism}, meaning for every point $s\in S$ there is an open neighborhood $U\ni s$ for which
     \begin{align*}
@@ -54,16 +54,16 @@ The definition of a \emph{sheaf} in Hirzebruch is perhaps a bit different from w
     \end{align*}
     is a homeomorphism
     \item for every $x\in X$, the \emph{stalk} $S_x := \pi^{-1}(x)$ has the structure of an \emph{abelian group}
-    \item the abelian group structure on $S_x$ is \emph{continuous in $x$}. Precisely, forming inverses defines a continuous function:
+    \item the abelian group structure on $S_x$ is \emph{continuous in $x$}. Precisely, forming inverses in each fiber defines a continuous function:
     \begin{align*}
         S &\to S \\
-        (\beta,x) &\mapsto (-\beta,x),
+        s &\mapsto -s,
     \end{align*}    
 and if we denote by $S \times_X S$ the subspace
     \begin{align*}
         S \times_X S := \left\{ (s_1,s_2) \in S \times S \colon \pi(s_1)=\pi(s_2) \right\} \subseteq S \times S,
     \end{align*}
-    then the addition is a continuous function:
+    then the operation of addition is a continuous function:
     \begin{align*}
         S \times_X S &\to S \\
         \left( (\alpha,x), (\beta,x) \right) &\mapsto (\alpha + \beta,x).
@@ -82,7 +82,7 @@ For any abelian group $A$ and any space $X$, we get a \emph{constant sheaf}
 \begin{align*}
     X \times A \to X,
 \end{align*}
-where $\pi$ is the projection onto $X$. When $A = \left\{ 0 \right\}$ this recovers the zero sheaf above.
+where $\pi$ is the projection onto $X$. When $A = \left\{ 0 \right\}$, this recovers the zero sheaf above.
 \end{example}
 
 \begin{example}[Skyscraper sheaves]
@@ -91,7 +91,7 @@ If we want build a sheaf with some \emph{prescribed} fiber $A$ over a point $x\i
 \begin{align*}
     i_\ast A = \frac{X \times A}{(y,a_1)\sim (y,a_2)\text{ for }y\ne x}.
 \end{align*}
-That is, we glue all the points of $A$ together over every point in $X$ \emph{except} our specified point $x$. We call it a \emph{skyscraper sheaf} because it has this big tall stalk at $x$ and is flat everywhere else. This space comes equipped with a projection back to $X$ which is a continuous local homeomorphism, and the abelian group structure on the stalks over points other than $x$ are just the structure on the one-element group. Note that this resulting space $i_\ast A$ is very much not Hausdorff.
+That is, we identify all the points of $A$ together over every point in $X$ \emph{except} our specified point $x$. We call it a \emph{skyscraper sheaf} because it has this big tall stalk at $x$ and is flat everywhere else. This space comes equipped with a projection back to $X$ which is a continuous local homeomorphism, and the abelian group structure on the stalks over points other than $x$ are just the structure on the one-element group. Note that this resulting space $i_\ast A$ is very much not Hausdorff.
 \end{example}
 
 
@@ -99,12 +99,7 @@ That is, we glue all the points of $A$ together over every point in $X$ \emph{ex
 \end{example}
 
 
-\begin{notation} For any sheaf of abelian groups $\pi \colon S \to X$, we have the so-called \emph{zero section}
-\begin{align*}
-    z \colon X &\to S \\
-    x &\mapsto (0,x)
-\end{align*}
-sending each point to the additive identity in its stalk. This map is continuous, and has the property that
+\begin{notation} For any sheaf of abelian groups $\pi \colon S \to X$, we have the so-called \emph{zero section} $z \colon X \to S$, sending each element $x\in X$ to the zero element in $S_x$. This map is continuous and has the property that
 \begin{align*}
     \pi\circ z = \id_X.
 \end{align*}
@@ -134,12 +129,12 @@ Applying $\pi_1$ or $H_1$ for instance, we have that the identity on $\Z$ factor
 
 \begin{definition} A \emph{morphism of sheaves} between $\pi \colon S\to X$ and $\til{\pi} \colon \til{S} \to X$ is a continuous map $f \colon S \to \til{S}$ satisfying the following properties:
 \begin{itemize}
-    \item $\til{\pi}f = \pi$, that is, we have a commutative diagram
+    \item $\til{\pi}\circ f = \pi$, that is, we have a commutative diagram
 \[ \begin{tikzcd}
     S\ar[dr,"\pi" below left]\ar[rr,"f"] &  & \til{S}\ar[dl,"\til{\pi}" below right]\\
      & X & 
 \end{tikzcd} \]
-    note this implies that $f$ restricts to a map on each stalk, that is, we get maps $f_x \colon S_x \to \til{S}_x$ for each $x\in X$
+    Note this implies that $f$ restricts to a map on each stalk, that is, we get maps $f_x \colon S_x \to \til{S}_x$ for each $x\in X$
     \item for each $x\in X$, the induced map on stalks
     \begin{align*}
         f_x \colon S_x \to \til{S}_x
@@ -214,7 +209,7 @@ We can't just take $\Gamma$ and evaluate it on the one-point set $\left\{ x \rig
 \end{align*}
 %
 \begin{proposition}\label{prop:colimit-sections-is-stalk}
-For every sheaf of abelian groups $S \to X$ and every $x\in X$ the canonical ``evaluation at $x$'' map
+For every sheaf of abelian groups $S \to X$ and every $x\in X$, the canonical ``evaluation at $x$'' map
 \begin{align*}
     \ev_x \colon \colim_{U\ni s} \Gamma(U,S) \to S_x
 \end{align*}
