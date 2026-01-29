@@ -49,10 +49,10 @@ The definition of a \emph{sheaf} in Hirzebruch is perhaps a bit different from w
     \end{align*}
     is a homeomorphism
     \item for every $x\in X$, the \emph{stalk} $S_x := \pi^{-1}(x)$ has the structure of an \emph{abelian group}
-    \item the abelian group structure on $S_x$ is \emph{continuous in $x$}. Precisely, forming inverses defines a continuous function:
+    \item the abelian group structure on $S_x$ is \emph{continuous in $x$}. Precisely, forming inverses in each fiber defines a continuous function:
     \begin{align*}
-        S \times X &\to S\times X \\
-        (\beta,x) &\mapsto (-\beta,x),
+        S &\to S \\
+        s &\mapsto -s,
     \end{align*}    
 and if we denote by $S \times_X S$ the subspace
     \begin{align*}
@@ -94,12 +94,7 @@ That is, we identify all the points of $A$ together over every point in $X$ \emp
 \end{example}
 
 
-\begin{notation} For any sheaf of abelian groups $\pi \colon S \to X$, we have the so-called \emph{zero section}
-\begin{align*}
-    z \colon X &\to S \times X \\
-    x &\mapsto (0,x)
-\end{align*}
-sending each point to the additive identity in its stalk. This map is continuous and has the property that
+\begin{notation} For any sheaf of abelian groups $\pi \colon S \to X$, we have the so-called \emph{zero section} $z \colon X \to S$, sending each element $x\in X$ to the zero element in $S_x$. This map is continuous and has the property that
 \begin{align*}
     \pi\circ z = \id_X.
 \end{align*}
