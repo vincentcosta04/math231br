@@ -484,15 +484,12 @@ Let $\Ab(X)$ denote the category of sheaves of abelian groups. It is clearly a f
 
 Our goal is to define the sheafification of a presheaf $F$ over $X$. We claim we've already seen this construction, it's simply the space $\amalg_{x\in X}F_x \to X$ we built previously.
 
-\begin{definition}\label{def:sheafification} Let $F \colon \Open(X)^\op \to \Ab$ be a presheaf. We will define a sheaf $F^\sharp(U)$ by the rule
-\begin{align*}
-    F^\sharp(U) = \Gamma(U, \amalg_{x\in X}F_x)
-\end{align*}
-where $\amalg_x F_x$ is topologized as in \Cref{def:basis-for-topology-on-espace-etale}.
+\begin{definition}\label{def:sheafification}
+Let $F \colon \Open(X)^\op \to \Ab$ be a presheaf. We will define the \emph{sheafification} of $F$ to be the sheaf $F^\sharp$ defined as $\amalg_{x\in X} F_x$, topologized as in \Cref{def:basis-for-topology-on-espace-etale}
 \end{definition}
 
 \begin{remark}\label{rmk:interpretation-of-sheafification}
-We can interpret $F^\sharp(U)$ as the set of those tuples $(f_x)_{x\in U} \in \prod_{x\in U} F_x$ for which, for any $x\in U$ there exists an open neighborhood $V\ni x$ and a section $s\in F(V)$ satisfying $s_v = f_v$ for all $v\in V$ (see e.g. \cite[007X]{Stacks}).
+We can interpret $F^\sharp(U) = \Gamma(U,\amalg_{x\in X}F_x)$ as the set of those tuples $(f_x)_{x\in U} \in \prod_{x\in U} F_x$ for which, for any $x\in U$ there exists an open neighborhood $V\ni x$ and a section $s\in F(V)$ satisfying $s_v = f_v$ for all $v\in V$ (see e.g. \cite[007X]{Stacks}).
 \end{remark}
 
 There is clearly a natural map of presheaves $F \to F^\sharp$, and we've already seen it! We called it $\theta_U$ in \Cref{eqn:theta-U}. It induces an isomorphism on stalks by definition. The thing to check is that the sheafification construction is functorial (omitted) and defines a left adjoint to the inclusion of sheaves in presheaves. Adjunction follows from the following universal property:
