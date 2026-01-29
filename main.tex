@@ -557,6 +557,177 @@ The fact that exponentiation is an epimorphism of sheaves is a stalkwise conditi
 \end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\appendix
+\section{Point-set topology}
+
+\begin{definition} A \emph{paracompact space} is a space for which every open cover admits an open refinement which is \emph{locally finite} (each point in the space intersects only most finitely many of the spaces in the refinement).
+\end{definition}
+This is strictly weaker than being compact, since compactness requires the entire cover to be finite, not just locally finite.
+
+\begin{example} Euclidean space $\R^n$ is paracompact but not compact.
+\end{example}
+
+
+\begin{theorem}[{Dieudonn\'e, \cite[2.8.2]{Hirzebruch}}] Every locally compact space with a countable basis is paracompact.
+\end{theorem}
+
+
+\subsection{Normal spaces}
+
+The idea of a \emph{normal} space can be thought of (loosely) as a strengthening of the Hausdorff condition. On $T_1$-spaces (spaces in which singletons are closed) this is a literal strengthening of the Hausdorff condition -- it says that not only can \emph{points} be separated by open neighborhoods, actually any disjoint \emph{closed subspaces} can be separated by open neighborhoods.
+
+\begin{definition}\label{def:normal}
+A space is \emph{normal} if any two disjoint closed subsets can be separated by disjoint open neighborhoods. Explicitly if $Z_1,Z_2 \subseteq X$ are each closed and $Z_1 \cap Z_2 = \emptyset$, then there exist open subspaces $U_1 \supseteq Z_1$ and $U_2 \supseteq Z_2$ so that $U_1 \cap U_2 = \emptyset$.
+\end{definition}
+
+
+\begin{theorem}[{Dieudonn\'e, \cite[2.8.1]{Hirzebruch}}] Every paracompact space is \emph{normal}.
+\end{theorem}
+
+
+In particular since our manifolds are Hausdorff with countable bases, they are in particular normal.
+
+\begin{lemma}[Urysohn's lemma]
+\label{lem:urysohn} 
+A space $X$ is normal if and only if, for every two disjoint closed subsets $A,B \subseteq X$, there exists a continuous function
+\begin{align*}
+    f \colon X \to [0,1]
+\end{align*}
+so that $f(A) =0$ and $f(B) =1$.
+\end{lemma}
+
+
+
+
+
+
+
+The following crucial result implies that, over a normal space, locally finite covers can always be ``shrunk.'' It is a crucial ingredient for the existence of partitions of unity.
+
+\begin{theorem}[{Shrinking theorem, \cite[2.8.3]{Hirzebruch}}]
+\label{thm:shrinking}
+Let $X$ be normal, and $\left\{ U_i \right\}_{i\in I}$ a locally finite\footnote{Hirzebruch says \emph{point finite}.} cover. Then $X$ admits an open cover $\left\{ V_i \right\}_{i\in I}$, indexed over the same set, so that $\overline{V_i} \subseteq U_i$.
+\end{theorem}
+
+
+
+
+\begin{definition}\label{def:partition-of-unity} 
+Let $\left\{ U_i \right\}_{i\in I}$ be an open cover of a space $X$. We say that a system of continuous functions $\left\{ \phi_i \colon X \to \R \right\}_{i\in I}$ is a \emph{partition of unity subordinate to} the cover if:
+\begin{enumerate}
+    \item $\phi_i(x) \ge 0$ for all $x\in X$
+    \item $\supp(\phi_i) \subseteq U_i$
+    \item Each point has an open neighborhood meeting $\supp(\phi_i)$ for only finitely many $i\in I$
+    \item We have that
+    \begin{align*}
+        \sum_{i\in I}\phi_i(x) = x
+    \end{align*}
+    for all $x\in X$. Note that sum is defined because of the previous point.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}\label{def:numerable-open-cover}
+We say an open cover of a space is \emph{numerable} if it admits a subordinate partition of unity. We say a fiber bundle is \emph{numerable} if the base admits a numerable cover over which the total space is trivialized \cite[7.1]{doldPartitionsUnityTheory1963}.
+\end{definition}
+
+
+
+\begin{theorem}\label{thm:paracompact-partition-unity} 
+A space is paracompact if and only if it is Hausdorff and every open cover admits a partition of unity.
+\end{theorem}
+\begin{proof} For a proof see \cite[pp.~30--31]{Hirzebruch}.
+\end{proof}
+
+The following result is originally due to Stone? An elegant reproof is due to Mary Ellen Rudin in the 60's. We can find the following in \cite[41.4]{Munkres}, for instance.
+
+\begin{theorem}\label{thm:metric-space-paracompact} Every metric space is paracompact.
+\end{theorem}
+
+Another crucial example is that CW complexes are paracompact. Miyazaki, Dugundji, Bourgin all separately proved in 1952 that simplicial complexes were paracompact. Miyazaki shortly thereafter extended this result to all CW complexes
+
+\begin{theorem}[{\cite{miyazakiParacompactnessCWcomplexes1952}}]
+\label{thm:miyazaki}
+Every CW complex is paracompact.
+\end{theorem}
+\begin{proof}[Sketch] There's a nice outline on the nLab -- we can induct on the skeleton, leveraging that disks and spheres are paracompact, and that paracompact Hausdorff spaces are closed under coproducts and pushouts along closed embeddings.
+\end{proof}
+
+
+\section{Category theory}
+If you are unfamiliar with colimits I really recommend reading Chapter 3 of \cite{riehlCategoryTheoryContext2016}.
+
+\subsection{Filtered colimits}
+
+\begin{definition} A category is \emph{filtered} if every finite diagram admits a cocone. Dually a category $\mathscr{C}$ is \emph{cofiltered} if every finite diagram admits a cone.
+\end{definition}
+
+\begin{example}\label{exa:OpenX-filtered} The category $\Open(X)$ is cofiltered.
+\end{example}
+\begin{proof} We don't have to worry about morphisms commuting, so it suffices to see, for finitely many $U_1, \ldots, U_n\in \Open(X)$, there is a $U$ mapping to them. Clearly we can take $U = U_1\cap \cdots \cap U_n$.
+\end{proof}
+
+\begin{example}\label{exa:OpenX-containing-x-filtered} For $x\in X$, the category of open subspaces of $X$ containing $x$ is cofiltered.
+\end{example}
+
+The important thing about filtered categories is that colimits computed over them are very well behaved.
+
+\begin{proposition} Filtered colimits valued in $\Set$ or $\Ab$ or any other reasonable concrete category (see \href{https://math.stackexchange.com/a/2143601}{here} for details for instance) commute with finite limits.
+\end{proposition}
+
+\begin{corollary} Filtered colimits (valued in $\Ab$, let's say) preserve monomorphisms.
+\end{corollary}
+\begin{proof} The property of a morphism $f \colon x \to y$ being a monomorphism is equivalent to the statement that the diagram
+\[ \begin{tikzcd}
+    x\rar["\id"]\dar["\id" left]\pb & x\dar["f" right]\\
+    x\rar["f" below] & y
+\end{tikzcd} \]
+is a pullback. This is a finite limit, hence commutes with filtered colimits.
+\end{proof}
+
+An interesting question in the setting of abelian categories is the interaction between exactness and filtered colimits. Indeed exactness of filtered colimits is a consequence of Grothendieck's axiom AB5 for abelian categories \cite[1.8.1]{Tohoku}.
+
+\begin{corollary}\label{cor:filtered-colimits-preserve-exactness} 
+Let $\mathcal{A}$ be an abelian category, and let $\Fun^\ex(\mathcal{A},\Ab)$ be the full subcategory of exact functors from $\mathcal{A}$ to abelian groups. Then $\Fun^\ex(\mathcal{A},\Ab)$ is preserved under filtered colimits.
+\end{corollary}
+\begin{proof} Filtered colimits in this category are computed levelwise, hence they commute with finite limits. Being right exact is a colimit, hence commutes with (filtered) colimits in any context. Being left exact is a pullback condition, hence a finite limit, and therefore commutes with filtered colimits.
+\end{proof}
+
+As a remark, this is not true if the colimits are not filtered, as illustrated by the following example:
+
+\begin{example} Let $F = \id_\Ab \colon \Ab \to \Ab$ be the (clearly exact) identity functor on the category of abelian groups, and consider the (non-filtered!) equalizer diagram
+\begin{align*}
+    0,2 \colon F \rightrightarrows F,
+\end{align*}
+where $0$ is the natural transformation given levelwise by the zero homomorphism, and $2$ is multiplication by $2$. Then we have that the colimit of this diagram is computed by the pointwise coequalizer of $0$ and $2$. In particular if $C \colon \Ab \to \Ab$ is the colimit of the above diagram, then
+\begin{align*}
+    C(A) = A/2A
+\end{align*}
+for every abelian group $A$. But this is not an exact functor $\Ab \to \Ab$.
+\end{example}
+
+We leverage \Cref{cor:filtered-colimits-preserve-exactness} a handful of times in the notes. It is important to see when categories are (co)filtered, since this will be useful. A very obvious example is the category $\Open(X)$, which is cofiltered, hence $\Open(X)^\op$ is filtered.
+
+
+\subsection{Cofinality}
+
+\begin{definition}\label{def:cofinal} Let $J$ be a category, and $I \subseteq J$ a subcategory. We say $I \subset J$ is \emph{cofinal} if, for any functor $F \colon J \to \mathscr{C}$, the induced map on colimits
+\begin{align*}
+    \colim_I F \to \colim_J F
+\end{align*}
+is an isomorphism in $\mathscr{C}$. We say $I \subseteq J$ is \emph{final} if $I^\op \subseteq J^\op$ is cofinal.
+\end{definition}
+
+The key reductive step of the Poincar\'e lemma relies on a recognition of cofinality (really finality, but the category gets ``opped'' when we take a contravariant functor out of it):
+
+\begin{proposition}\label{prop:manifold-stalk-cofinal-system} Let $M$ be an $n$-dimensional manifold and let $x\in M$ be an arbitrary point. Then the category of open sets of $M$ containing $x$ admits a final system given by those open sets $U \subseteq M$ so that $U\ni x$ \emph{and} $U$ is homeomorphic to $\R^n$.
+\end{proposition}
+\begin{proof} Fix a chart $(U_0,\phi)$ around $x$. For any $V \ni x$ open, we can intersect it with the chart to get $V \cap U_0$. In the image $\phi(V\cap U_0)$ we can find some open ball containing $\phi(x)$, and the preimage of this in $M$ is both homeomorphic to $\R^n$ and contained in $V$.
+\end{proof}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliography{zbib.bib}
 \bibliographystyle{amsalpha}
