@@ -12,6 +12,11 @@ Course notes from MATH231b: algebraic topology II, taught at Harvard in Spring 2
 
 \maketitle
 
+\begin{center}
+    \url{https://github.com/tbrazel/math231br}
+\end{center}
+
+
 \setcounter{section}{-1}
 \section{About}
 
@@ -666,9 +671,24 @@ If you are unfamiliar with colimits I really recommend reading Chapter 3 of \cit
 \end{example}
 \begin{proof} We don't have to worry about morphisms commuting, so it suffices to see, for finitely many $U_1, \ldots, U_n\in \Open(X)$, there is a $U$ mapping to them. Clearly we can take $U = U_1\cap \cdots \cap U_n$.
 \end{proof}
-
 \begin{example}\label{exa:OpenX-containing-x-filtered} For $x\in X$, the category of open subspaces of $X$ containing $x$ is cofiltered.
 \end{example}
+
+\begin{definition}\label{def:refinement-open-cover} Let $X$ be a space, and let $\mathcal{U} = \left\{ U_i \right\}_{i\in I}$ and $\left\{ V_j \right\}_{j\in J}$ be two open covers of $X$. We say that $\mathcal{V}$ is a \emph{refinement} of $\mathcal{U}$ if for every $V\in \mathcal{V}$ there exists some $U \in \mathcal{U}$ so that $V \subseteq U$.
+\end{definition}
+
+
+\begin{definition}\label{def:covX} Let $X$ be a topological space. We denote by $\Cov(X)$ the poset (category) of open covers of $X$ under refinement. That is, an object of $\Cov(X)$ is an open cover $\mathcal{U}$ of $X$, and for any two covers $\mathcal{U},\mathcal{V} \in \Cov(X)$, we have exactly one morphism $\mathcal{V} \to \mathcal{U}$ if $\mathcal{V}$ refines $\mathcal{U}$, otherwise there are no morphisms from $\mathcal{V}$ to $\mathcal{U}$.
+\end{definition}
+
+\begin{example}\label{exa:CovX-filtered} We have that $\Cov(X)$ is cofiltered. This is precisely the assertion that two covers admit a common refinement, and therefore by induction finitely many covers admit a common refinement.
+\end{example}
+
+
+
+
+
+
 
 The important thing about filtered categories is that colimits computed over them are very well behaved.
 
@@ -724,6 +744,24 @@ The key reductive step of the Poincar\'e lemma relies on a recognition of cofina
 \end{proposition}
 \begin{proof} Fix a chart $(U_0,\phi)$ around $x$. For any $V \ni x$ open, we can intersect it with the chart to get $V \cap U_0$. In the image $\phi(V\cap U_0)$ we can find some open ball containing $\phi(x)$, and the preimage of this in $M$ is both homeomorphic to $\R^n$ and contained in $V$.
 \end{proof}
+
+The following result is a categorical rephrasing of an important result in differential topology. Before we can phrase it we need a definition.
+
+\begin{definition}\label{def:good-cover} Let $\mathcal{U}$ be an open cover of $X$. We say that it is a \emph{good cover} if all the $U\in \mathcal{U}$ and all the nonempty intersections of finitely many elements in $\mathcal{U}$ are contractible spaces.
+\end{definition}
+
+
+\newpage
+\begin{proposition}\label{prop:good-covers-final-in-covers-on-mfld} Let $M$ be a Riemannian manifold, and denote by $\Cov^\text{good}(M)$ the category of good open covers of $M$. Then $\Cov^\text{good}(M) \subseteq \Cov(M)$ is a final subcategory.
+\end{proposition}
+\begin{proof} The content of this is showing every cover refines to a good one. Fix a cover $\mathcal{U}$ of $M$, and now pick any point $x\in M$, and any $U \ni x$. Since every point on a Riemannian manifold admits a positive convexity radius, we can obtain a geodesically convex neighborhood around each point, and by potentially shrinking the radius we may assume it is contained in $U$. This is clearly convex, and it yields a good cover since the intersection of geodesically convex spaces is geodesically convex, hence contractible.
+\end{proof}
+
+In particular, any colimiting construction we want to pursue over covers of a Riemannian manifold can be reduced to good open covers.
+
+A wild fun fact is that the poset of open sets and refinement for a good cover can be used to recover the homotopy type of the manifold (or space) you started out with! This is the content of the \emph{nerve lemma}.
+
+
 
 
 
