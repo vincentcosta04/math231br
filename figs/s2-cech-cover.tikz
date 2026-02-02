@@ -1,0 +1,82 @@
+\begin{tikzpicture}[scale=2, line cap=round, line join=round]
+  % Colors (light, flat)
+  \colorlet{North}{blue!30}
+  \colorlet{South}{red!30}
+  \colorlet{Overlap}{purple!35}
+
+  % Parameters
+  \def\R{1.4}         % sphere radius
+  \def\eps{0.22}      % "overlap" half-thickness (in picture units)
+  \def\eq{0.40*\R}    % equator ellipse minor radius (perspective cue)
+
+  % Derived quantities
+  \pgfmathsetmacro{\xeps}{sqrt(\R*\R - \eps*\eps)}      % x-intersections at y=±eps
+  \pgfmathsetmacro{\yeps}{(\eq)*(\xeps/\R)}             % minor radius for latitude ellipses
+  \pgfmathsetmacro{\ang}{asin(\eps/\R)}                 % angle (degrees) with sin = eps/R
+
+  % --- Fill SOUTH cap U_S (below the upper latitude y=+eps) ---
+  \begin{scope}
+    \clip (0,0) circle (\R);
+    \fill[South]
+      (-\xeps,\eps)
+        arc[start angle=180-\ang, end angle=360+\ang, radius=\R]  % outer circle (bottom arc)
+      --
+      (\xeps,\eps)
+        arc[start angle=0, delta angle=-180, x radius=\xeps, y radius=\yeps] % upper latitude (lower half)
+      -- cycle;
+  \end{scope}
+
+  % --- Fill NORTH cap U_N (above the lower latitude y=-eps) ---
+  \begin{scope}
+    \clip (0,0) circle (\R);
+    \fill[North]
+    (-\xeps,\eps)
+        arc[start angle=180-\ang, end angle=\ang, radius=\R]  % outer circle (bottom arc)
+      --
+      (\xeps,\eps)
+        arc[start angle=0, delta angle=-180, x radius=\xeps, y radius=\yeps] % upper latitude (lower half)
+      -- cycle;
+  \end{scope}
+
+  % --- Fill overlap belt U_N ∩ U_S (between the two latitudes) ---
+  \begin{scope}[rotate=180]
+    \clip (0,0) circle (\R);
+    \fill[Overlap]
+      (-\xeps,\eps)
+        arc[start angle=180, delta angle=-180, x radius=\xeps, y radius=\yeps] % upper latitude (lower half)
+      --
+      (\xeps,\eps)
+        arc[start angle=\ang, delta angle=-2*\ang, radius=\R]                  % right side of sphere (clockwise)
+      --
+      (\xeps,-\eps)
+        arc[start angle=0, end angle=180, x radius=\xeps, y radius=\yeps]      % lower latitude (upper half)
+      --
+      (-\xeps,-\eps)
+        arc[start angle=180+\ang, delta angle=-2*\ang, radius=\R]              % left side of sphere (clockwise)
+      -- cycle;
+  \end{scope}
+
+    % \draw (\xeps,\eps) arc (1:30:32);
+
+  % Sphere outline
+  \draw[thick] (0,0) circle (\R);
+
+ % Equator ellipse: front solid, back dashed
+ \begin{scope}[rotate=180]
+  \draw[thick]
+    (-\R,0) arc[start angle=180, end angle=0, x radius=\R, y radius=\eq];
+  % \draw[thick, dashed]
+  %   (\R,0) arc[start angle=0, end angle=180, x radius=\R, y radius=\eq];
+
+  % Optional: light guides for the overlap boundaries (comment out if too busy)
+  \draw[thin,dashed] (-\xeps,\eps)  arc[start angle=180, delta angle=-180, x radius=\xeps, y radius=\yeps];
+  \draw[thin,dashed] (-\xeps,-\eps) arc[start angle=180, end angle=0,      x radius=\xeps, y radius=\yeps];
+  \end{scope}
+    \draw[thick,dashed]
+    (-\R,0) arc[start angle=180, end angle=0, x radius=\R, y radius=\eq];
+  % Labels
+
+  \node[text=blue!60]   at (0,\R+0.25) {$U_N$};
+  \node[text=red!60]    at (0,-\R-0.25) {$U_S$};
+  \node[text=purple!70] at (\R+0.5,0) {$U_N\cap U_S$};
+\end{tikzpicture}

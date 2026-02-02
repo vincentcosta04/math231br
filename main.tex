@@ -45,7 +45,7 @@ Aside from the main text, which we deviate from at various points, some other re
 
 \subsection{Acknowledgements}
 
-Thank you to Zo\"{e} Batterman and Vincent Costa for changes to the notes. Thanks to Sidhanth Raman for helpful correspondence in preparing this class.
+Thank you to Zo\"{e} Batterman, Vincent Costa, and Gabe Ong for offering suggestions and changes to the notes. Thanks to Sidhanth Raman for helpful correspondence in preparing this class.
 
 \section{Sheaves}
 
@@ -83,6 +83,7 @@ We should think about a sheaf of abelian groups as being a space where we can do
 
 
 \begin{example}[Constant sheaves]
+\label{exa:constant-sheaf-espace-etale}
 For any abelian group $A$ and any space $X$, we get a \emph{constant sheaf}
 \begin{align*}
     X \times A \to X,
@@ -390,7 +391,7 @@ is exact, where that rightmost map is the difference of the two restrictions. If
 \end{remark}
 
 
-\begin{corollary}\label{cor:espace-etale-equivalence-of-cats} 
+\begin{corollary}\label{cor:espace-etale-isomorphism-of-cats} 
 There is an isomorphism of categories between
 \begin{align*}
     \left\{ \text{sheaves on }X \right\} \simeq \left\{ \substack{\text{the full subcategory of presheaves on }X \\ \text{ satisfying locality and gluing}} \right\}.
@@ -464,7 +465,7 @@ is a sheaf of sets. We call this the \emph{representable sheaf} attached to $Y$,
 \begin{align*}
     \mathbb{C}_{\mathfrak{c}} \colon \Open(X)^\op \to \Ab
 \end{align*}
-the sheaf sending $U \subseteq X$ to the abelian group of complex-valued continuous functions $U \to \C$. We call $\mathbb{C}_{\mathfrak{c}}$ the \emph{sheaf of germs of local complex-valued continuous functions}, following \cite[p.~23]{Hirzebruch}.
+the sheaf sending $U \subseteq X$ to the abelian group of complex-valued continuous functions $U \to \C$. This is the ``representable sheaf'' attached to $\mathbb{C}$, in the sense of \Cref{exa:representable-sheaves}. We call $\mathbb{C}_{\mathfrak{c}}$ the \emph{sheaf of germs of local complex-valued continuous functions}, following \cite[p.~23]{Hirzebruch}.
 \end{example}
 
 In general for spaces, we can take a sheaf of continuous functions valued in $\R$, in $\C$, in some other space, whatever we like. If $X$ has more structure, we can ask for these functions to respect the additional structure!
@@ -472,13 +473,20 @@ In general for spaces, we can take a sheaf of continuous functions valued in $\R
 \begin{example} Let $X$ be a differentiable manifold. We denote by $\mathbb{C}_{\mathfrak{b}}$ the sheaf of local complex-valued differentiable functions.\footnote{Recall a complex-valued function is differentiable if and only if both its real and imaginary parts are.}
 \end{example}
 
-\begin{example} Let $X$ be a complex manifold. We let $\mathbb{C}_{\omega}$ denote the sheaf of local holomorphic functions.
+\begin{example} Let $X$ be a complex manifold. We let $\mathbb{C}_{\omega}$ denote the sheaf of local holomorphic functions. We will prefer the notation $\mathcal{O}_X$ in this class.
+\end{example}
+
+\begin{proposition}\label{prop:stalk-of-OX} 
+If $X$ is any complex manifold and $p\in X$ is any point, there is an isomorphism between $\mathcal{O}_{X,p}$ and the ring of convergent power series in $n$ variables.
+\end{proposition}
+\begin{proof} An element of $\mathcal{O}_{X,p}$ is an equivalence class of tuple $(f,U)$ where $U \ni p$ is open and $f$ is holomorphic on $U$. By cofinality we can assume that $(U,p)$ is homeomorphic $(B,0)$ where $B$ is some open ball around the origin in Euclidean space. In particular $f$ can be identified with its Taylor series expansion on the open ball given by its radius of convergence. We note that $(f_1,U_1) \sim (f_2,U_2)$ if the Taylor series expansions of $f_1$ and $f_2$ agree in a neighborhood of $p$.
+\end{proof}
+
+\begin{example} Similarly the stalks of the sheaf $\mathcal{M}_X$ of germs of meromorphic functions are given by the ring of convergent Laurent series with finitely many negative variables (finite principal parts) \cite[p.~42]{Forster}.
 \end{example}
 
 \begin{exercise} If $X$ is a compact connected complex manifold, show that $\Gamma(X, \mathbb{C}_\omega) = \C$.
 \end{exercise}
-
-
 
 \subsection{Sheafification}
 
@@ -490,7 +498,7 @@ Let $\Ab(X)$ denote the category of sheaves of abelian groups. It is clearly a f
 Our goal is to define the sheafification of a presheaf $F$ over $X$. We claim we've already seen this construction, it's simply the space $\amalg_{x\in X}F_x \to X$ we built previously.
 
 \begin{definition}\label{def:sheafification}
-Let $F \colon \Open(X)^\op \to \Ab$ be a presheaf. We will define the \emph{sheafification} of $F$ to be the sheaf $F^\sharp$ defined as $\amalg_{x\in X} F_x$, topologized as in \Cref{def:basis-for-topology-on-espace-etale}
+Let $F \colon \Open(X)^\op \to \Ab$ be a presheaf. We will define the \emph{sheafification} of $F$ to be the sheaf $F^\sharp$ defined as $\amalg_{x\in X} F_x$, topologized as in \Cref{def:basis-for-topology-on-espace-etale}.
 \end{definition}
 
 \begin{remark}\label{rmk:interpretation-of-sheafification}
@@ -510,9 +518,19 @@ Let $F\in \Fun(\Open(X)^\op,\Ab)$ and $G\in \Ab(X)$. Then any map $F \to G$ fact
 so it suffices to check that $G\to G^\sharp$ is an equivalence of sheaves, but this is true because it is a stalkwise isomorphism.\footnote{This wouldn't work if $G$ was just a presheaf, as although $G\to G^\sharp$ is a stalkwise isomorphism that does not imply it is an isomorphism of presheaves, only of sheaves.}
 \end{proof}
 
-\subsection{Subsheaves and cokernels}
+\begin{exercise}[Constant sheaf]
+\label{exer:constant-sheaf}
+Let $A\in \Ab$. Then there is a silly presheaf on $X$ which sends every open subset $U\subseteq X$ to $A$, and every restriction map to the identity on $A$. We call this the \emph{constant presheaf} valued at $A$. We will denote by $\underline{A}$ the sheafification of this presheaf, and call this the \emph{constant sheaf} valued at $A$. By construction.
+\begin{enumerate}
+    \item Verify that, under the isomorphism of categories \Cref{cor:espace-etale-isomorphism-of-cats}, the constant sheaf $\underline{A}$ corresponds to the sheaf \label{exa:constant-sheaf-espace-etale} defined as $X \times A \to X$, where $A$ has the discrete topology.
+    \item Show that $\Gamma(U,\underline{A})$ can be described as locally constant functions valued in $A$.
+\end{enumerate}
+\end{exercise}
 
-\begin{notation} For a topological space $X$, we denote by $\Ab(X)$ the category of \emph{sheaves of abelian groups} on $X$, and morphisms between them. Again following the equivalence of categories of \Cref{cor:espace-etale-equivalence-of-cats} we're allowed to work with local homeomorphisms of abelian groups over $X$ or presheaves on $X$ satisfying the sheaf condition. So every definition and statement we make here will have two equivalent formulations in each model of sheaves. We will provide both at the start but will begin dropping one for convenience as we continue.
+
+\subsection{Subsheaves, kernels and cokernels}
+
+\begin{notation} For a topological space $X$, we denote by $\Ab(X)$ the category of \emph{sheaves of abelian groups} on $X$, and morphisms between them. Again following the equivalence of categories of \Cref{cor:espace-etale-isomorphism-of-cats-of-cats} we're allowed to work with local homeomorphisms of abelian groups over $X$ or presheaves on $X$ satisfying the sheaf condition. So every definition and statement we make here will have two equivalent formulations in each model of sheaves. We will provide both at the start but will begin dropping one for convenience as we continue.
 \end{notation}
 
 \begin{definition}[Subsheaf] Let $F \colon \Open(X)^\op \to \Ab$ be a sheaf. We say that a sheaf $G$ is a \emph{subsheaf} of $F$ if $G(U) \le F(U)$ is a subgroup for each $U\in \Open(X)$, and for any $V \subseteq U$, the restriction map $\res_U^V \colon F(U) \to F(V)$ is equal to the restriction map $G(U)\to G(V)$ for $G$.
@@ -525,6 +543,28 @@ so it suffices to check that $G\to G^\sharp$ is an equivalence of sheaves, but t
     \item The stalk $(S_1)_x$ is a subgroup of the stalk $(S_2)_x$ for all $x\in X$.
 \end{enumerate}
 \end{definition}
+
+\begin{example}\label{exa:subsheaves-examples} Let $X$ be a complex manifold.
+\begin{enumerate}
+    \item We can think of subsheaves
+    \begin{align*}
+        \mathcal{O}_X \subseteq \mathbb{C}_\mathfrak{b} \subseteq \mathbb{C}_\mathfrak{c}
+    \end{align*}
+    as the subsheaves of complex valued continuous functions of differentiable, and then holomorphic sections.
+    \item Let $\mathcal{M}_X$ denote the sheaf of local meromorphic sections. Then $\mathcal{O}_X \subseteq \mathcal{M}_X$ is a subsheaf, since every holomorphic function is meromorphic.
+
+    \item Let $\mathcal{O}_X^\ast$ denote the sheaf of germs of nowhere-vanishing holomorphic functions:
+    \begin{align*}
+        \mathcal{O}_X^\ast(U) := \left\{ f \colon U \to \C \text{ holomorphic, and } f(p)\ne 0 \text{ for all } p\in U \right\}.
+    \end{align*}
+    Note that, while we have a subset inclusion $\mathcal{O}_X^\ast(U) \subseteq \mathcal{O}_X(U)$ for every $U$, this is only a subsheaf of \emph{sets}. It is not a subsheaf of groups because the group operation in $\mathcal{O}_X^\ast(U)$ is multiplicative, while in $\mathcal{O}_X(U)$ it is additive.
+\end{enumerate}
+\end{example}
+
+\begin{example} For $X$ a complex manifold and $p \in X$, we have that the stalk $\mathcal{O}_{X,p}^\ast$ can be identified with the multiplicative group of convergent power series around $p$ whose constant term is nonzero (c.f.~\Cref{prop:stalk-of-OX}).
+\end{example}
+
+
 
 Just as subgroups of abelian groups are kernels of group homomorphisms, we can construct subsheaves as kernels of abelian sheaf homomorphisms.
 
@@ -556,10 +596,316 @@ This allows us to find \emph{exact sequences} of sheaves.
 \end{align*}
 The kernel of this is isomorphic to the constant sheaf $\Z$, because $f$ and $f + n$ map to the same thing for any $n \in \Z$. We claim that we get a short exact sequence of sheaves
 \begin{align*}
-    0 \to \Z \to \mathbb{C}_{\mathfrak{c}} \xto{\exp} \mathbb{C}_{\mathfrak{c}}^\ast \to 0.
+    0 \to \underline{\Z} \to \mathbb{C}_{\mathfrak{c}} \xto{\exp} \mathbb{C}_{\mathfrak{c}}^\ast \to 0,
 \end{align*}
+where as a reminder $\underline{\Z}$ denotes the constant sheaf at the integers (\Cref{exer:constant-sheaf}).
 The fact that exponentiation is an epimorphism of sheaves is a stalkwise condition, saying that for every value $x\in X$, we can find a sufficiently small neighborhood in which we can take a branch and define $\log(z)$.
 \end{example}
+
+\begin{example} Let $X$ be any complex manifold. Let $\mathcal{O}_X \subseteq \mathcal{M}_X$ be the subsheaf of holomorphic sections inside meromorphic sections, as in \Cref{exa:subsheaves-examples}. Then we can \emph{define} the \emph{sheaf of principal parts} (see e.g. \cite[(4.2)]{gunningTopicsFunctionTheory2018}) as
+\begin{align*}
+    0 \to \mathcal{O}_X \to \mathcal{M}_X \to \mathcal{P}_X \to 0.
+\end{align*}
+\end{example}
+
+The terminology comes from the \emph{principal part} of a meromorphic function around a pole \cite[p.~75]{steinComplexAnalysis2003}.
+
+\begin{proposition} If $X$ is a Riemann surface, and $p\in X$ is any point, we have that $\mathcal{P}_{X,p}$ is given by the ring of finite negative Laurent expansions in a local coordinate around $p$.
+\end{proposition}
+\begin{proof} As taking stalks is exact, we can describe $\mathcal{P}_{X,p}$ as the cokernel of the natural map $\mathcal{O}_{X,p} \to \mathcal{M}_{X,p}$. This inclusion sits a Taylor series inside the world of convergent Laurent series, so the quotient is exactly those terms which do not come from Taylor series, i.e. the principal part of a convergent Laurent expansion.
+\end{proof}
+
+\begin{example} For $X$ a complex manifold we define the \emph{sheaf of divisors} $\Div_X$ to be the cokernel
+\begin{align*}
+    0 \to \mathcal{O}_X^\ast \to \mathcal{M}_X^\ast \to \Div_X \to 0.
+\end{align*}
+By our understanding of the stalks of the first two sheaves we can understand the stalks of the latter.
+\end{example}
+
+\begin{exercise} If $X$ is a Riemann surface, show that $\Div_{X,p} \cong \Z$ for every point $p\in X$.
+\end{exercise}
+
+\section{Sheaf cohomology}
+A big result here that we won't prove is the following:
+
+\begin{theorem} We have that $\Ab(X)$ is an abelian category.
+\end{theorem}
+\begin{proof} This is a standard example of an abelian category. See \cite[II\S2]{godementTopologieAlgebriqueTheorie1958} or \cite{Tohoku}.
+\end{proof}
+
+An abelian category is a setting in which we can do \emph{homological algebra}. In particular, we will be allowed to resolve sheaves by nicer sheaves, or ones which are easier to deal with in some respect.
+
+\begin{remark} For technical reasons, we're going to restrict our attention to sheaf cohomology over paracompact spaces. This is due to the presence of partitions of unity subordinate to open covers (\Cref{thm:paracompact-partition-unity}).
+\end{remark}
+
+\begin{example}[Representability of sections]
+\label{exa:ZU-sheaf}
+Let $U \subseteq X$ be an open set. Then the functor
+\begin{align*}
+    \Gamma(U,-) \colon \Ab(X) &\to \Ab \\
+    S &\mapsto \Gamma(U,S)
+\end{align*}
+is corepresentable, meaning there exists a sheaf we will denote by $\Z_U$ for which $\Hom_{\Ab(X)}(\Z_U,-) \cong \Gamma(U,-)$ are naturally isomorphic.\footnote{This is poor notation. Better notation is to let $j \colon U \hookto X$ denote the inclusion, and write $j_! \Z_U$.}
+\end{example}
+\begin{proof}
+Denote by $h_U = \Hom_{\Open(X)}(-,U)$ the presheaf of sets\footnote{Note this is \emph{different} than the ``representable'' presheaf we defined in \Cref{exa:representable-sheaves}. There we looked at all continuous maps into $U$, whereas here we only want the natural inclusion of $V$ in $U$, if it exists.}
+\begin{align*}
+    h_U(V) = \begin{cases} \ast & V \subseteq U \\ \emptyset & V \subsetneq U. \end{cases}
+\end{align*}
+By the Yoneda lemma, we have a natural bijection
+\begin{align*}
+    \Hom_{\Fun(\Open(X)^\op,\Set)}(h_U,F) \cong F(U) \in \Set
+\end{align*}
+for any sheaf of sets $F$.
+
+Let's now bootstrap to abelian groups. Let $\Z[h_U]$ be the free presheaf of abelian groups on the sheaf of sets $h_U$ --- by this we mean it is defined as
+\begin{align*}
+    \Z[h_U](V) = \begin{cases} \Z & V \subseteq U \\ \{0\} & V \subsetneq U. \end{cases}
+\end{align*}
+It is clear then that we have a natural group isomorphism
+\begin{align*}
+    \Hom_{\Fun(\Open(X)^\op,\Ab)} \left( \Z[h_U],F \right)\cong F(U) \in \Ab
+\end{align*}
+for any presheaf of abelian groups $F$. Finally if $F$ was a sheaf, then any morphism of presheaves $\Z[h_U] \to F$ factors uniquely through the sheafification of $\Z[h_U]$ by \Cref{prop:UP-of-sheafification}. We denote this by
+\begin{align*}
+    \Z_U := (\Z[h_U])^\sharp.
+\end{align*}
+It is clear now that we have a natural isomorphism $\Z_U\cong\Gamma(U,-)$ (c.f.~\cite[03CP,03CQ]{Stacks}.
+\end{proof}
+
+\begin{remark} We can describe $\Z_U(V)$ explicitly via our understanding of sheafification in \Cref{rmk:interpretation-of-sheafification} --- it is exactly given as the abelian group of locally constant functions $f \colon U \cap V \to \Z$ which extend to a locally constant function on all of $V$, but where the function satisfies $f(v) = 0$ if $v\in V \minus (U\cap V)$. This latter condition is equivalent to the statement that the support of $f$ is closed in $V$, which is often how you'll see $\Z_U(V)$ described:
+\begin{align*}
+    \Z_U(V) = \left\{ \substack{\text{locally constant functions } U\cap V \to \Z\\ \text{with support closed in }V} \right\}
+\end{align*}
+\end{remark}
+
+Observe that if $U_1 \subseteq U_2$ then there is a natural morphism of sheaves $\Z_{U_2}\to \Z_{U_1}$. This extends to a functor
+\begin{equation}\label{eqn:U-to-ZU-functor}
+\begin{aligned}
+    \Open(X)^\op &\to \Ab(X) \\
+    U &\mapsto \Z_U
+\end{aligned}
+\end{equation}
+We'll use this later on.
+
+
+\begin{exercise} Verify the claim in \cite[1.9.2]{Tohoku} that the collection $\left\{ \Z_U \right\}_{U\in \Open(X)}$ forms a system of \emph{generators} for the category $\Ab(X)$.
+\end{exercise}
+
+\subsection{\v{C}ech cohomology}
+
+Let $\mathcal{U} = \left\{ U_i \right\}_{i\in I}$ be a cover of $X$, let $F$ be a sheaf, and define
+\begin{equation}\label{eqn:group-of-Cech-cochains}
+\begin{aligned}
+    C^q(\mathcal{U},F) = \prod_{i_0, \ldots, i_q \in I} F(U_{i_0} \cap \cdots \cap U_{i_q}).
+\end{aligned}
+\end{equation}
+We call this the \emph{group of cochains}. We can define a \emph{coboundary map}
+\begin{equation}\label{eqn:cech-coboundary-formula}
+\begin{aligned}
+    \delta^q \colon C^q(\mathcal{U},F) &\to C^{q+1}(\mathcal{U},F),
+\end{aligned}
+\end{equation}
+defined as
+\begin{align*}
+    (\delta^q f)(i_0, \ldots, i_{q+1}) = \sum_{j=0}^{q+1} (-1)^k f(i_0, \ldots, \widehat{i_k}, \ldots, i_{q+1}).
+\end{align*}
+\begin{remark}\label{rmk:cech-cohomology-definition-notes} \, 
+\begin{enumerate}
+    \item As a remark, $f(i_0, \ldots, \widehat{i_k}, \ldots, i_{q+1})$ is naturally valued in $U_{i_0}\cap \cdots \cap U_{i_{k-1}} \cap U_{i_{k+1}}\cap \cdots \cap U_{i_{q+1}}$, but we want to think about it as being valued in $\bigcap_{j=0}^{q+1} U_{i_j}$ under the restriction map in order to form the sum above. We've chosen to suppress this restriction from the notation, but Hirzebruch includes it (c.f. \cite[p.~26]{Hirzebruch}.
+    \item\label{abelian-coboundary-condition} The coboundary condition in \Cref{eqn:cech-coboundary-formula} is written additively, since we are assuming $F$ is a sheaf of abelian groups. In later contexts we might write it multiplicatively (if $F$ isn't assumed to be abelian),
+\end{enumerate}
+\end{remark}
+
+%
+\begin{exercise} Show that $\delta^{q+1}\circ \delta^q = 0$, so that we get a cochain complex
+\begin{equation}\label{eqn:Cech-cochain-complex}
+\begin{aligned}
+     \cdots \to C^{q-1}(\mathcal{U},F) \xto{\delta^{q-1}} C^q(\mathcal{U},F) \xto{\delta^q} C^{q+1}(\mathcal{U},F) \xto{\delta^{q+1}} \cdots
+\end{aligned}
+\end{equation}
+\end{exercise}
+
+\begin{definition}\label{def:Cech-cohomology-on-cover} 
+We define the \textit{Cech cohomology} of $F\in \Ab(X)$ over the cover $\mathcal{U}$ to be
+\begin{align*}
+    \hat{H}^q(\mathcal{U},F) = \ker(\delta^q)/\im(\delta^{q-1}).
+\end{align*}
+\end{definition}
+
+\begin{example}\label{exa:s2-north-south-cover}
+Consider the sphere $S^2$, equipped with an open cover $\mathcal{U} = \{U_n,U_s\}$, where $U_n$ and $U_s$ denote the northern and southern hemispheres, respectively, plus a little overlap on the equator. Let's compute the sheaf cohomology in the constant sheaf $\underline{\Z}$ which we defined in \Cref{exer:constant-sheaf}:
+\begin{center} 
+\input{figs/s2-cech-cover.tikz}
+\end{center}
+We have that:
+\begin{itemize}
+    \item $\check{C}^0(\mathcal{U},\underline{\Z}) = \underline{\Z}(U_n) \times \underline{\Z}(U_s)$. Since each of these open sets is connected, a locally constant function $U_n \to \Z$ is just constant -- so we get that $\underline{\Z}(U_n) \cong \Z$ by evaluation at the north pole, say, and similarly for $U_s$. Hence $\check{C}^0(\mathcal{U},\underline{\Z}) \cong \Z \times \Z$.
+    \item $\check{C}^1(\mathcal{U},\underline{\Z}) = \underline{\Z}(U_n \cap U_s)$, since there is only one double overlap to consider. Again since it is connected, we get that $\check{C}^1(\mathcal{U},\underline{\Z})\cong \Z$.
+    \item $\check{C}^q(\mathcal{U},\underline{\Z}) = 0$ for $q\ge2$ since there are no triple overlaps in our cover.
+\end{itemize}
+So our chain complex looks like
+\begin{align*}
+    0 \to \Z \oplus \Z \to \Z \to 0.
+\end{align*}
+We want to understand the differential $\delta^0$. Given $f\in \check{C}^0(\mathcal{U}, \underline{\Z})$, it consists of two functions which we'll call $f_n \colon U_n \to \Z$ and $f_s \colon U_s \to \Z$. They are both locally constant, hence constant. The differential is then of the form
+\begin{align*}
+    \delta^0(f) \colon U_n \cap U_s &\to \Z \\
+    u &\mapsto f_n(u)-f_s(u).
+\end{align*}
+Altogether we get the chain complex
+\begin{align*}
+    0 \to \Z \oplus \Z \xto{\begin{pmatrix} 1 \\ -1 \end{pmatrix}} \Z \to 0.
+\end{align*}
+So we get
+\begin{align*}
+    \check{H}^q(\mathcal{U},\underline{\Z}) = \begin{cases} \Z & q=0 \\ \Z & q=1 \\ 0 & q\ge 2 \end{cases}
+\end{align*}
+\end{example}
+
+\begin{definition}\label{def:refinement-open-cover} Let $X$ be a space, and let $\mathcal{U} = \left\{ U_i \right\}_{i\in I}$ and $\left\{ V_j \right\}_{j\in J}$ be two open covers of $X$. We say that $\mathcal{V}$ is a \emph{refinement} of $\mathcal{U}$ if for every $V\in \mathcal{V}$ there exists some $U \in \mathcal{U}$ so that $V \subseteq U$.
+\end{definition}
+
+\begin{exercise} Recall the cover $\mathcal{U}$ of the 2-sphere we constructed in \Cref{exa:s2-north-south-cover}. Find a refinement $\mathcal{V}$ of $\mathcal{U}$ for which the \v{C}ech cohomology is exactly
+\begin{align*}
+    \check{H}^q(\mathcal{V},\underline{\Z}) = \begin{cases} \Z & q=0 \\ 0 & q=1 \\ \Z & q=2 \\ 0 & q>2. \end{cases}
+\end{align*}
+\end{exercise}
+
+\begin{definition}\label{def:covX} Let $X$ be a topological space. We denote by $\Cov(X)$ the poset (category) of open covers of $X$ under refinement. That is, an object of $\Cov(X)$ is an open cover $\mathcal{U}$ of $X$, and for any two covers $\mathcal{U},\mathcal{V} \in \Cov(X)$, we have exactly one morphism $\mathcal{V} \to \mathcal{U}$ if $\mathcal{V}$ refines $\mathcal{U}$, otherwise there are no morphisms from $\mathcal{V}$ to $\mathcal{U}$.
+\end{definition}
+
+\begin{exercise} If $X$ is a space, $F\in \Ab(X)$, and $\mathcal{U},\mathcal{V}$ are open covers of $X$ for which $\mathcal{V}$ is a refinement of $\mathcal{U}$, define a natural restriction morphism
+\begin{align*}
+    \check{H}^q(\mathcal{U},F) \to \check{H}^q(\mathcal{V},F).
+\end{align*}
+\textit{Hint}: You should need to make choices in your construction -- argue that the map ultimately doesn't depend on the choices you make.
+\end{exercise}
+
+In particular, the exercise above indicates that \v{C}ech cohomology is functorial in the cover. This motivates the following definition:
+
+\begin{definition}\label{def:Cech-cohomology} 
+We define the \emph{\v{C}ech cohomology} of $F\in \Ab(X)$ by
+\begin{align*}
+    \check{H}^q(X,F) := \colim_{\mathcal{U}\in \Cov(X)} \check{H}^q(\mathcal{U},F).
+\end{align*}
+That is, it is the colimit of the \v{C}ech cohomology along all possible covers, filtered by refinement.
+\end{definition}
+
+\begin{example} On $S^1$, we can take a simple cover consisting of only all of $S^1$, letting $F=\underline{\Z}$ be the constant sheaf $\Z$. Then the \v{C}ech cochains complex for this is the chain complex $\Z[0]$ concentrated in degree zero. This gives $\check{H}^0(\mathcal{U},F) = \Z$ and vanishing cohomology elsewhere. On the other hand, we can take a cover $S^1 = U_0 \cup U_1$, where $U_0$ and $U_1$ are the upper and lower semicircle, plus a little extra so that they overlap:
+\begin{figure}[H]
+\begin{tikzpicture}[scale=2]
+  % circle
+  \draw[thick] (0,0) circle (1);
+
+  % upper and lower "open" sets as thick arcs (leaving small gaps at left/right)
+  \draw[very thick, blue!30]
+    (-170:1) arc[start angle=-170, end angle=-10, radius=1];
+  \draw[very thick, red!30]
+    (170:1) arc[start angle=170, end angle=10, radius=1];
+
+  % optional: lightly indicate the overlap neighborhoods near left/right
+  \draw[very thick, purple!35]
+    (-10:1) arc[start angle=-10, end angle=10, radius=1];
+  \draw[very thick, purple!35]
+    (170:1) arc[start angle=170, end angle=190, radius=1];
+
+  % labels for the open sets
+  \node[red!60] at (0,0.75) {$U_0$};
+  \node[blue!60]  at (0,-0.75) {$U_1$};
+
+  % labels for overlaps (optional)
+  \node[purple!70] at (1.3,0) {$U_{01}$};
+  \node[purple!70] at (-1.3,0) {$U_{01}$};
+
+\end{tikzpicture}
+\end{figure}
+
+Note that $\check{C}^1(\mathcal{U},F) = \Z^{\times 2}$ in this instance, since $U_0 \cap U_1$ has two connected components. The chain complex here then looks like
+\begin{align*}
+    \check{C}^\bullet(\mathcal{U},F) : \quad\quad 0 \to \Z \oplus \Z \xto{\begin{pmatrix} 1 & -1 \\ 1 & -1\end{pmatrix}} \Z \oplus \Z \to 0 \to \cdots
+\end{align*}
+so we get cohomology in degrees $0$ and $1$, as expected. This is an example of how \emph{refining} the cover can detect more cohomological features.
+\end{example}
+
+\begin{exercise} Give an example of \emph{noise} in \v{C}ech cohomology. That is, find a cover which creates a cohomology class which vanishes under refinement.
+\end{exercise}
+
+
+
+\begin{proposition}\label{prop:Cech-0-is-global-sections} 
+For any space $X$ and any $F\in\Ab(X)$, we have a canonical isomorphism
+\begin{align*}
+    \check{H}^0(X,F) \cong \Gamma(X,F).
+\end{align*}
+\end{proposition}
+\begin{proof} Given any open cover $\mathcal{U} = \left\{ U_i \right\}$, an element $f \in \check{H}^0(\mathcal{U},F)$ is an element $f_i \in F(U_i)$ for each $i$ (this is the condition of lying in $C^0(\mathcal{U},F)$), which lies in the kernel of $\delta^0 \colon C^0 \to C^1$. This means that $f_{i|U_i\cap U_j} = f_{j|U_i\cap U_j}$ for each $i,j$. Since $F$ is a sheaf, by gluing, the $f_i$'s glue together to give a well-defined global section $f\in \Gamma(X,F)$. This is easily seen to be an isomorphism.
+\end{proof}
+
+\begin{exercise} Verify that \v{C}ech cohomology is functorial in the sheaf, that is for any $X$ and any $q\ge 0$ we have a functor
+\begin{align*}
+    \check{H}^q(X,-) \colon \Ab(X) \to \Ab.
+\end{align*}
+\end{exercise}
+
+\begin{proposition}\label{prop:LES-Cech-cohomology} 
+If
+\begin{align*}
+    0 \to F_1 \to F_2 \to F_3 \to 0
+\end{align*}
+is a short exact sequence of sheaves in $\Ab(X)$, it induces a long exact sequence
+\begin{align*}
+    0 &\to \check{H}^0(X,F_1) \to \check{H}^0(X,F_2) \to \check{H}^0(X,F_3) \\
+    &\to \check{H}^1(X,F_1) \to \check{H}^1(X,F_2) \to \check{H}^1(X,F_3) \\
+    &\to \check{H}^2(X,F_1) \to \cdots
+\end{align*}
+\end{proposition}
+\begin{proof}[Sketch] We first show, for any cover $\mathcal{U}$, that $\check{C}^q(\mathcal{U},-)$ is an exact functor on $\Ab(X)$. A diagram chase then implies we get a long exact sequence on $\check{H}^\ast(\mathcal{U},-)$. Then we take a colimit over all $\mathcal{U}$ in the filtered category of covers $\Cov(X)$, and use that filtered colimits preserve exactness to conclude (\Cref{exa:CovX-filtered} and \Cref{cor:filtered-colimits-preserve-exactness}). The details are spelled out in \cite[pp.~28--29]{Hirzebruch}.
+\end{proof}
+
+\begin{remark} The definition of \v{C}ech cohomology in \Cref{def:Cech-cohomology} doesn't require $F$ to be a sheaf --- it makes sense for $F$ any presheaf. In particular we didn't use the sheaf condition in setting up this theory, aside from using \emph{gluing} to argue that $\check{H}^0(X,F) \cong \Gamma(X,F)$. We can make sense of \v{C}ech cohomology in any \emph{presheaf}, which begs the question: when do the \v{C}ech cohomology of a sheaf $F$ and of its sheafification $\til{F}$ agree?
+\end{remark}
+
+\begin{proposition}\label{prop:property-of-pshf-sheafifying-to-zero} 
+Let $F$ be a presheaf over a space, and suppose $F^\sharp = 0$. For any point $x\in X$, any open $U\ni x$ and any $f\in F(U)$, there exists some smaller open neighborhood $V \subseteq U$ containing $x$ for which $f_{|V} = 0$. 
+\end{proposition}
+\begin{proof} This is because the stalk $F_x$ must be zero.
+\end{proof}
+
+
+
+\begin{lemma}\label{lem:presheaf-sheafifying-to-zero-has-no-cohomology} 
+Let $X$ be a paracompact space, and $F$ a presheaf on $X$. Then if $F^\sharp$ is the zero sheaf, we claim that $\check{H}^n(X,F) = 0$ for all $n\ge0$.
+\end{lemma}
+\begin{proof} We show that no cochains survive refinement. That is, if $f \in \check{C}^q(\mathcal{U},F)$ for some cover $\mathcal{U} = \{U_i\}_{i\in I}$, we will find a refinement of the cover which kills $f$. Without loss of generality assume that $\mathcal{U}$ is locally finite. By the Dieudonn\'e shrinking theorem (\Cref{thm:shrinking}), we may find a cover $\mathcal{W} = \left\{ W_i \right\}_{i\in I}$ for which $\overline{W_i} \subseteq U_i$.
+
+Let $J = X$ as a set--- we will produce a refinement of the cover $\mathcal{U}$, now indexed over $J$. For each $x\in X$, we pick an open neighborhood $V_x \ni x$ for which:
+\begin{itemize}
+    \item if $x\in U_i$ then $V_x \subseteq U_i$ and if $x\in W_i$ then $V_x \subseteq W_i$
+    \item if $V_x \cap W_i \ne \emptyset$ then $V_x \subseteq U_i$
+    \item if $x\in U_{i_0} \cap \cdots \cap U_{i_q}$ then $f(i_0, \ldots, i_q)$ restricts to zero in $F(V_x)$.
+\end{itemize}
+Since $\mathcal{U}$ and $\mathcal{W}$ are locally finite, there are only finitely many $U_i$ and $W_i$ containing $x$ to worry about, so the first two conditions can be fulfilled. Why are we allowed to guarantee the last condition can hold? By \Cref{prop:property-of-pshf-sheafifying-to-zero} some sufficiently small neighborhood of $x$ in $U_{i_0} \cap \cdots \cap U_{i_q}$ will have the property that $f(i_0, \ldots, i_q)$ restricts to zero in it. We can pick $V_x$ to be that neighborhood, perhaps intersecting it further finitely many times to make it satisfy the first two conditions.
+
+We now claim that $f$ refines to zero in this new cover $\left\{ V_x \right\}_{x\in X}$. Pick any tuple $(x_0, \ldots, x_q)$, and let $i_j$ be such that $x_j \in W_{i_j} \subseteq U_{i_j}$ for each $j$. By (1), this tells us that $V_{x_j} \subseteq W_{i_j} \subseteq U_{i_j}$. We want to argue that the image of $f(i_0, \ldots, i_p)$ under the restriction map
+\begin{align*}
+    F(U_{i_0} \cap \cdots \cap U_{i_q}) \to F(V_{x_0}\cap \cdots \cap V_{x_q})
+\end{align*}
+is zero. If the intersection of the $V_{x_i}$'s is empty, there is nothing to show, so suppose it is nonempty. Then $V_{x_0}\cap V_{x_k}$ is nonempty for each $k$. Since $V_{x_k} \subseteq W_{i_k}$, we have that $V_{x_0} \cap W_{i_k} \ne \emptyset$, and by point (2) this implies that $V_{x_0} \subseteq U_{i_k}$. Since this is true for all $k$, we have that $V_{x_0} \subseteq U_{i_0} \cap \cdots \cap U_{i_q}$. However by (3), we have that $f(i_0, \ldots, i_q)$ restricts to zero on $V_x$ and therefore on the smaller subset $V_{x_0} \cap \cdots \cap V_{x_q}$.
+\end{proof}
+
+
+\begin{theorem} If $X$ is paracompact, and $F$ is a presheaf with corresponding sheaf $\til{F}$, then the natural map $\check{H}^q(X,F) \to \check{H}^q(X,\til{F})$ is an isomorphism for all $q\ge0$.
+\end{theorem}
+\begin{proof} Consider the sheafification map $F \to F^\sharp$ and take its kernel and cokernel
+\begin{align*}
+    0 \to K \to F \to F^\sharp \to C \to 0.
+\end{align*}
+As $F \to F^\sharp$ sheafifies to an isomorphism, and since sheafification is an exact functor, we have that $K$ and $C$ sheafify to zero. Hence their higher cohomology vanishes by \Cref{lem:presheaf-sheafifying-to-zero-has-no-cohomology}, and using the long exact sequence on cohomology attached to short exact sequences of sheaves, we obtain that the induced maps $\check{H}^q(X,F) \to \check{H}^q(X,F^\sharp)$ are all isomorphisms.
+\end{proof}
+
+So over paracompact spaces, there is no difference between the cohomology of a presheaf and of its resulting sheafification.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -658,7 +1004,7 @@ Every CW complex is paracompact.
 \begin{proof}[Sketch] There's a nice outline on the nLab -- we can induct on the skeleton, leveraging that disks and spheres are paracompact, and that paracompact Hausdorff spaces are closed under coproducts and pushouts along closed embeddings.
 \end{proof}
 
-
+\newpage
 \section{Category theory}
 If you are unfamiliar with colimits I really recommend reading Chapter 3 of \cite{riehlCategoryTheoryContext2016}.
 
@@ -674,21 +1020,9 @@ If you are unfamiliar with colimits I really recommend reading Chapter 3 of \cit
 \begin{example}\label{exa:OpenX-containing-x-filtered} For $x\in X$, the category of open subspaces of $X$ containing $x$ is cofiltered.
 \end{example}
 
-\begin{definition}\label{def:refinement-open-cover} Let $X$ be a space, and let $\mathcal{U} = \left\{ U_i \right\}_{i\in I}$ and $\left\{ V_j \right\}_{j\in J}$ be two open covers of $X$. We say that $\mathcal{V}$ is a \emph{refinement} of $\mathcal{U}$ if for every $V\in \mathcal{V}$ there exists some $U \in \mathcal{U}$ so that $V \subseteq U$.
-\end{definition}
 
-
-\begin{definition}\label{def:covX} Let $X$ be a topological space. We denote by $\Cov(X)$ the poset (category) of open covers of $X$ under refinement. That is, an object of $\Cov(X)$ is an open cover $\mathcal{U}$ of $X$, and for any two covers $\mathcal{U},\mathcal{V} \in \Cov(X)$, we have exactly one morphism $\mathcal{V} \to \mathcal{U}$ if $\mathcal{V}$ refines $\mathcal{U}$, otherwise there are no morphisms from $\mathcal{V}$ to $\mathcal{U}$.
-\end{definition}
-
-\begin{example}\label{exa:CovX-filtered} We have that $\Cov(X)$ is cofiltered. This is precisely the assertion that two covers admit a common refinement, and therefore by induction finitely many covers admit a common refinement.
+\begin{example}\label{exa:CovX-filtered} For a space $X$, the category $\Cov(X)$ of open covers under refinement (defined in \Cref{def:covV}) is cofiltered. This is precisely the assertion that two covers admit a common refinement, and therefore by induction finitely many covers admit a common refinement.
 \end{example}
-
-
-
-
-
-
 
 The important thing about filtered categories is that colimits computed over them are very well behaved.
 
