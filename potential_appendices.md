@@ -13,7 +13,7 @@ Provide an overview of the construction and basic properties of *Inoue surfaces*
 Give a recount of the comparison theorem between singular cohomology and sheaf cohomology with coefficients in a constant sheaf. Explain (following Sella) why we only need to assume $X$ is semi-locally contractible in the assumptions of the theorem.
 
 ## $\Omega_3=0$
-Give an overview of Rokhlin's result that the cobordism group of oriented 3-manifolds is trivial [Overview of Rokhlin's work](https://www.math.stonybrook.edu/~oleg/Rokhlin/RokhlinTopologyWorks.html). (Dibs: Luke Lelli)
+Prove that $\Omega_3^\text{SO}=0$ following Chapter 2 of Saveliev's *Lectures on the topology of 3-manifolds*. (Dibs: Luke Lelli)
 
 ## The $\widehat{A}$-genus
 Discuss the $\widehat{A}$-genus and its connection to spin bordism. (Dibs: Zoe Batterman)
