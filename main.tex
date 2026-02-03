@@ -24,11 +24,9 @@ These notes are from a MATH213BR, a second-semester graduate algebraic topology 
 
 \subsection{Overview}
 
-\textbf{Part 1}: We begin with the theory of sheaves of sets and discrete groups on topological spaces, developing their cohomology and comparing it with singular and de Rham cohomology. We continue with sheaves of topological groups (aka fiber bundles) and develop their basic theory. We then discuss vector bundle theory and Chern and Pontryagin classes. 
+\textbf{Part 1}: We begin with the theory of sheaves of sets and discrete groups on topological spaces, developing their cohomology and comparing it with singular and de Rham cohomology. We continue with fiber bundles and develop their basic theory. We then discuss vector bundle theory and Chern and Pontryagin classes. 
 
-\textbf{Part 2}: We develop the ideas of oriented cobordism and basic index theory.
-
-%\textbf{Part 3}: We discuss basic Hodge theory, Bertini's theorem, K\"{a}hler manifolds, and Kodaira vanishing. We end by proving Riemann-Roch for algebraic manifolds.
+\textbf{Part 2}: We discuss oriented and complex cobordism, genera, the $L$-genus and Todd genus, and the index of a $4n$-manifold. We prove Hirzebruch's signature theorem as well as Riemann-Roch for algebraic manifolds.
 
 \subsection{References}
 Aside from the main text, which we deviate from at various points, some other references which have informed the presentation here include:
@@ -40,8 +38,6 @@ Aside from the main text, which we deviate from at various points, some other re
     \item \emph{genera}: Hirzebruch's book \cite{MMF}
     \item \emph{complex manifolds}: Griffiths and Harris \cite{griffithsPrinciplesAlgebraicGeometry1978}
 \end{itemize}
-
-
 
 \subsection{Acknowledgements}
 
@@ -170,7 +166,6 @@ We say a sequence of maps of sheaves
 is \emph{short exact} if $S_x \xto{f_x} T_x \xto{g_x} U_x$ is a short exact sequence of abelian groups for every $x\in X$.
 \end{definition}
 
-
 \subsection{Sheaves and presheaves}
 
 Given any sheaf $S\to X$, we can ask when we have \emph{sections}, which are maps $X \to S$ that are right inverses to the projection map $\pi$.
@@ -202,7 +197,6 @@ This is called the \emph{presheaf} associated to $S$.
 
 \begin{terminology} If $S \to X$ is a sheaf, an element of $\Gamma(X,S)$ will be called a \emph{global section}. This is to indicate it is defined globally, i.e. everywhere on $X$, in contrast with sections only defined locally on some open subspace $U$.
 \end{terminology}
-
 
 Let's think about what structures of $S$ we can recover from its presheaf.
 
@@ -359,8 +353,6 @@ Let $U,\theta_U$ be as above, and suppose \Cref{lem:theta-monomorphism}(\ref{loc
 
 So what conditions were essential to showing that $\theta_U$ was a bijection for every $U$? It was \Cref{lem:theta-monomorphism}(\ref{locality}), which tells us if sections agree \emph{locally} then they agree \emph{globally}, and \Cref{lem:theta-epimorphism}(\ref{gluing}), which told us that sections defined locally and agreeing on overlaps can be \emph{glued} together to get a global section. These two conditions are called \emph{locality} and \emph{gluing}. Let's summarize our observations:
 
-
-
 \begin{theorem} A presheaf $F \colon \Open(X)^\op \to \Ab$ is the presheaf of sections attached to a sheaf if and only if the two conditions hold:
 \begin{itemize}
     \item[\textbf{Sh1}] \textit{(Locality)} For any open set $U \subseteq X$ and any open cover $\left\{ U_i \right\}_{i\in I}$ of $U$, if $s,t\in F(U)$ satisfy $s_{U_i} = t_{U_i}$ for each $i \in I$, then $s=t$. Phrased differently, the map
@@ -390,7 +382,6 @@ So what conditions were essential to showing that $\theta_U$ was a bijection for
 is exact, where that rightmost map is the difference of the two restrictions. If we ever want to talk about sheaves of \emph{sets} we can't do this, because subtracting two functions doesn't make sense unless they are group homomorphisms.
 \end{remark}
 
-
 \begin{corollary}\label{cor:espace-etale-isomorphism-of-cats} 
 There is an isomorphism of categories between
 \begin{align*}
@@ -398,7 +389,6 @@ There is an isomorphism of categories between
 \end{align*}
 \end{corollary}
 \begin{proof} We have shown a bijection on objects, so it suffices to verify that there is also a bijection on morphisms of each type.
-
 
 Let $S$ and $S'$ be sheaves. Then a map of sheaves $f \colon S \to S'$ clearly induces a map of presheaves, since any section $U \to S$ can be postcomposed with $f$ to get a section $U \to S'$, hence we get an induced map $\Gamma(U,S) \to \Gamma(U,S')$ which is easily seen to be compatible with restriction.
 
@@ -530,7 +520,7 @@ Let $A\in \Ab$. Then there is a silly presheaf on $X$ which sends every open sub
 
 \subsection{Subsheaves, kernels and cokernels}
 
-\begin{notation} For a topological space $X$, we denote by $\Ab(X)$ the category of \emph{sheaves of abelian groups} on $X$, and morphisms between them. Again following the equivalence of categories of \Cref{cor:espace-etale-isomorphism-of-cats-of-cats} we're allowed to work with local homeomorphisms of abelian groups over $X$ or presheaves on $X$ satisfying the sheaf condition. So every definition and statement we make here will have two equivalent formulations in each model of sheaves. We will provide both at the start but will begin dropping one for convenience as we continue.
+\begin{notation} For a topological space $X$, we denote by $\Ab(X)$ the category of \emph{sheaves of abelian groups} on $X$, and morphisms between them. Again following the isomorphism of categories of \Cref{cor:espace-etale-isomorphism-of-cats} we're allowed to work with local homeomorphisms of abelian groups over $X$ or presheaves on $X$ satisfying the sheaf condition. So every definition and statement we make here will have two equivalent formulations in each model of sheaves. We will provide both at the start but will begin dropping one for convenience as we continue.
 \end{notation}
 
 \begin{definition}[Subsheaf] Let $F \colon \Open(X)^\op \to \Ab$ be a sheaf. We say that a sheaf $G$ is a \emph{subsheaf} of $F$ if $G(U) \le F(U)$ is a subgroup for each $U\in \Open(X)$, and for any $V \subseteq U$, the restriction map $\res_U^V \colon F(U) \to F(V)$ is equal to the restriction map $G(U)\to G(V)$ for $G$.
@@ -1026,7 +1016,7 @@ If you are unfamiliar with colimits I really recommend reading Chapter 3 of \cit
 
 The important thing about filtered categories is that colimits computed over them are very well behaved.
 
-\begin{proposition} Filtered colimits valued in $\Set$ or $\Ab$ or any other reasonable concrete category (see \href{https://math.stackexchange.com/a/2143601}{here} for details for instance) commute with finite limits.
+\begin{proposition} Filtered colimits valued in $\Set$ or $\Ab$ or any other reasonable concrete category (see \href{https://math.stackexchange.com/a/2143601}{SE2143601} for details for instance) commute with finite limits.
 \end{proposition}
 
 \begin{corollary} Filtered colimits (valued in $\Ab$, let's say) preserve monomorphisms.
@@ -1039,7 +1029,7 @@ The important thing about filtered categories is that colimits computed over the
 is a pullback. This is a finite limit, hence commutes with filtered colimits.
 \end{proof}
 
-An interesting question in the setting of abelian categories is the interaction between exactness and filtered colimits. Indeed exactness of filtered colimits is a consequence of Grothendieck's axiom AB5 for abelian categories \cite[1.8.1]{Tohoku}.
+An interesting question in the setting of abelian categories is the interaction between exactness and filtered colimits. Indeed exactness of filtered colimits is a consequence of Grothendieck's axiom AB5 for abelian categories \cite[1.8.1]{Tohoku}. We will leverage the following corollary a handful of times:
 
 \begin{corollary}\label{cor:filtered-colimits-preserve-exactness} 
 Let $\mathcal{A}$ be an abelian category, and let $\Fun^\ex(\mathcal{A},\Ab)$ be the full subcategory of exact functors from $\mathcal{A}$ to abelian groups. Then $\Fun^\ex(\mathcal{A},\Ab)$ is preserved under filtered colimits.
@@ -1059,8 +1049,6 @@ where $0$ is the natural transformation given levelwise by the zero homomorphism
 \end{align*}
 for every abelian group $A$. But this is not an exact functor $\Ab \to \Ab$.
 \end{example}
-
-We leverage \Cref{cor:filtered-colimits-preserve-exactness} a handful of times in the notes. It is important to see when categories are (co)filtered, since this will be useful. A very obvious example is the category $\Open(X)$, which is cofiltered, hence $\Open(X)^\op$ is filtered.
 
 
 \subsection{Cofinality}
@@ -1084,8 +1072,6 @@ The following result is a categorical rephrasing of an important result in diffe
 \begin{definition}\label{def:good-cover} Let $\mathcal{U}$ be an open cover of $X$. We say that it is a \emph{good cover} if all the $U\in \mathcal{U}$ and all the nonempty intersections of finitely many elements in $\mathcal{U}$ are contractible spaces.
 \end{definition}
 
-
-\newpage
 \begin{proposition}\label{prop:good-covers-final-in-covers-on-mfld} Let $M$ be a Riemannian manifold, and denote by $\Cov^\text{good}(M)$ the category of good open covers of $M$. Then $\Cov^\text{good}(M) \subseteq \Cov(M)$ is a final subcategory.
 \end{proposition}
 \begin{proof} The content of this is showing every cover refines to a good one. Fix a cover $\mathcal{U}$ of $M$, and now pick any point $x\in M$, and any $U \ni x$. Since every point on a Riemannian manifold admits a positive convexity radius, we can obtain a geodesically convex neighborhood around each point, and by potentially shrinking the radius we may assume it is contained in $U$. This is clearly convex, and it yields a good cover since the intersection of geodesically convex spaces is geodesically convex, hence contractible.
