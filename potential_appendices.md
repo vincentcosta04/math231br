@@ -26,3 +26,6 @@ Give an intro to Calabi-Eckmann manifolds, following their original paper. Prove
 
 ## The Lefschetz hyperplane theorem via Morse theory
 Give an overview of Andreotti and Frankel proof of the Lefschetz hyperplane theorem via Morse theory. Use it to compute the (co)homology of various complex algebraic varieties.
+
+## Thom's computation of $\pi_\ast \text{MSO}$
+Prove Theorem 7.2.2 in Hirzebruch, that $\Omega_k^{\text{SO}}$ is finite for $k\not\equiv0\pmod{4}$ and that $\Omega_{4n}^{\text{SO}} = \mathbb{Z}^{\\#\text{partitions of }n} \oplus \text{finite gp}$, following Thom's 1954 paper. This involves some heavier homotopy theory than other projects.
